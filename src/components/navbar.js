@@ -3,13 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { AppContext } from '../AppContext';
 import { logOut } from '../utils';
 import { useHistory } from 'react-router';
+import logo from '../images/logo512.png';
 
 const Navbar = () => {
 	const { setUser, user } = useContext(AppContext);
 	const history = useHistory();
 	return (
 		<nav className="flex py-6 bg-black text-white items-center">
-			<div className="px-8 text-xl">MyMusic</div>
+			<img className="h-6 ml-6 mr-2 mt-0.5" src={logo} />
+			<div className="pr-8 text-xl">MyMusic</div>
 			<ul className="flex flex-grow">
 				<li className="w-16">
 					<NavLink

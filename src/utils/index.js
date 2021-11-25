@@ -96,7 +96,7 @@ export const logOut = async () => {
 
 export const getTopTracks = async () => {
 	const response = await fetch(
-		'http://api.napster.com/v2.2/tracks/top?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4',
+		'https://api.napster.com/v2.2/tracks/top?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4',
 	);
 	const data = await response.json();
 	return data.tracks.map((track) => {

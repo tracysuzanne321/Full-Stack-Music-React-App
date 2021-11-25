@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router';
 import { useState, useContext } from 'react';
 import { AppContext } from '../AppContext';
-import { createUser, updateUser, deleteUser } from '../utils';
+import { updateUser, deleteUser } from '../utils';
 
 const Settings = () => {
 	const [valid, setValid] = useState(true);

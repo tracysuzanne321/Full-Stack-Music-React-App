@@ -1,22 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import { getTopTracks } from '../utils';
 import { AppContext } from '../AppContext';
-import { addTrack } from '../utils';
-import { deleteTrack } from '../utils';
 
 const Tiles = ({ onlyShowSaved = false }) => {
 	const { savedTracks, setSavedTracks } = useContext(AppContext);
 	const [tracks, setTracks] = useState();
 
-	useEffect(async () => {
-		if (onlyShowSaved === false) {
-			const topTracks = await getTopTracks();
-			console.log(topTracks);
-			setTracks(topTracks);
-		} else {
-			setTracks(savedTracks);
+	useEffect(() => {
+		async function fetchData() {
+			if (onlyShowSaved === false) {
+				const topTracks = await getTopTracks();
+				console.log(topTracks);
+				setTracks(topTracks);
+			} else {
+				setTracks(savedTracks);
+			}
 		}
-	}, []);
+		fetchData();
+	}, [onlyShowSaved, savedTracks]);
 
 	return (
 		<div className="flex flex-wrap">
@@ -28,7 +29,11 @@ const Tiles = ({ onlyShowSaved = false }) => {
 					<div
 						key={`${track.name}_${track.artistName}`}
 						className="flex flex-col w-full xs:w-1/2 sm:w-1/3 md:w-1/4 p-2">
-						<img className="rounded" src={track.image} />
+						<img
+							className="rounded"
+							alt={`${track.name} cover art`}
+							src={track.image}
+						/>
 						<div className="text-sm truncate">{track.name}</div>
 						<div className="text-xs">{track.artistName}</div>
 						<button

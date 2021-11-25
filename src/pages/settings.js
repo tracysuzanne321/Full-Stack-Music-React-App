@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
 const Settings = () => {
-	const { setUser, user } = useContext(AppContext);
+	const { user } = useContext(AppContext);
 
 	return (
 		<div className="flex justify-center">

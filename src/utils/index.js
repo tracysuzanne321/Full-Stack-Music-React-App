@@ -51,11 +51,10 @@ export const updateUser = async (id, username, email, password) => {
 //!Need to code
 export const deleteUser = async (id) => {
 	try {
-		const response = await fetch(`${apiUrl}/delete/${id}`, {
+		await fetch(`${apiUrl}/delete/${id}`, {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' },
 		});
-		const data = await response.json();
 		return {
 			message: 'success',
 		};

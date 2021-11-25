@@ -10,7 +10,6 @@ const Tiles = ({ onlyShowSaved = false }) => {
 		async function fetchData() {
 			if (onlyShowSaved === false) {
 				const topTracks = await getTopTracks();
-				console.log(topTracks);
 				setTracks(topTracks);
 			} else {
 				setTracks(savedTracks);
@@ -48,9 +47,7 @@ const Tiles = ({ onlyShowSaved = false }) => {
 								} else {
 									const currentTracks = savedTracks ?? [];
 									track.id = `${track.name}_${track.artistName}`;
-									console.log(track);
 									setSavedTracks([...currentTracks, track]);
-									console.log(savedTracks);
 								}
 							}}
 							type="submit"

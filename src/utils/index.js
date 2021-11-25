@@ -20,7 +20,6 @@ export const createUser = async (username, email, password) => {
 			id: data.result._id,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };
@@ -44,7 +43,6 @@ export const updateUser = async (id, username, email, password) => {
 			id: data.result._id,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };
@@ -59,14 +57,12 @@ export const deleteUser = async (id) => {
 			message: 'success',
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };
 //*Done
 export const login = async (email, password) => {
 	try {
-		console.log(apiUrl);
 		const response = await fetch(`${apiUrl}/login`, {
 			method: 'POST',
 			headers: {
@@ -85,7 +81,6 @@ export const login = async (email, password) => {
 			id: data.user._id,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };
@@ -123,7 +118,6 @@ export const addTrack = async (track) => {
 			track: data.result.track,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };
@@ -143,7 +137,6 @@ export const deleteTrack = async (track) => {
 			track: data.result.track,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };

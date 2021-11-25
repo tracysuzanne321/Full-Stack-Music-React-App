@@ -17,7 +17,6 @@ const Settings = () => {
 			onSubmit={async (e) => {
 				e.preventDefault();
 				try {
-					console.log(user.id);
 					const userData = await updateUser(user.id, username, email, password);
 					setUser(userData);
 					history.push('/');

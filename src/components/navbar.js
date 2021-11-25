@@ -48,21 +48,32 @@ const Navbar = () => {
 						</li>
 					</>
 				) : (
-					<li className="w-16 ml-auto mr-4">
-						<a
-							href="#logout"
-							onClick={async () => {
-								await logOut();
-								history.push('/');
-								setUser({
-									username: '',
-									email: '',
-								});
-							}}
-							className="hover:text-pink-500">
-							Log Out
-						</a>
-					</li>
+					<>
+						<li className="w-16 ml-auto mr-4">
+							<NavLink
+								exact
+								to="/settings"
+								className="hover:text-pink-500"
+								activeClassName="text-pink-500">
+								Settings
+							</NavLink>
+						</li>
+						<li className="w-16 mr-4">
+							<a
+								href="#logout"
+								onClick={async () => {
+									await logOut();
+									history.push('/');
+									setUser({
+										username: '',
+										email: '',
+									});
+								}}
+								className="hover:text-pink-500">
+								Log Out
+							</a>
+						</li>
+					</>
 				)}
 			</ul>
 		</nav>

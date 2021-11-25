@@ -25,15 +25,7 @@ const Home = () => {
 	) : (
 		<div className="mt-4 px-4">
 			<div className="text-xl mb-4">
-				<div className="flex">
-					Hi {user.username}, welcome to MyMusic!
-					<Link
-						exact
-						to="/settings"
-						className="bg-pink-500 hover:bg-black p-1.5 rounded text-white mt-8">
-						User Settings
-					</Link>
-				</div>
+				<div className="flex">Hi {user.username}, welcome to MyMusic!</div>
 			</div>
 			<Tiles />
 		</div>

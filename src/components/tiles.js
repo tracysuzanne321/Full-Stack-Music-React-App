@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { getTopTracks } from '../utils';
 import { AppContext } from '../AppContext';
+import { addTrack } from '../utils';
+import { deleteTrack } from '../utils';
 
 const Tiles = ({ onlyShowSaved = false }) => {
 	const { savedTracks, setSavedTracks } = useContext(AppContext);

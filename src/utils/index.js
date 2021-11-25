@@ -1,29 +1,6 @@
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 const reactAppDomain = process.env.REACT_APP_DOMAIN;
-
-export const getUser = async (setUser, history) => {
-	try {
-		const token = localStorage.getItem('MyToken');
-
-		if (!token) {
-			history.push('/login');
-		}
-
-		const response = await fetch(`${apiUrl}/token`, {
-			method: 'GET',
-			headers: { authorization: `bearer ${token}` },
-		});
-
-		const data = await response.json();
-		const savedUser = data.username;
-		if (savedUser) {
-			setUser(savedUser);
-		}
-	} catch (error) {
-		console.log(error);
-	}
-};
-
+//*Done
 export const createUser = async (username, email, password) => {
 	try {
 		const response = await fetch(`${apiUrl}/user`, {
@@ -40,17 +17,54 @@ export const createUser = async (username, email, password) => {
 		return {
 			username: data.result.username,
 			email: data.result.email,
+			id: data.result._id,
 		};
 	} catch (error) {
 		console.log(error);
 		throw error;
 	}
 };
-
-export const logOut = async () => {
-	document.cookie = `authToken=loggedOut;max-age=0;domain=${reactAppDomain}`;
+//!Need to code
+export const updateUser = async (id, username, email, password) => {
+	try {
+		const response = await fetch(`${apiUrl}/update/${id}`, {
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				username: username,
+				email: email,
+				password: password,
+			}),
+		});
+		const data = await response.json();
+		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
+		return {
+			username: data.result.username,
+			email: data.result.email,
+			id: data.result._id,
+		};
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };
-
+//!Need to code
+export const deleteUser = async (id) => {
+	try {
+		const response = await fetch(`${apiUrl}/delete/${id}`, {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+		});
+		const data = await response.json();
+		return {
+			message: 'success',
+		};
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+};
+//*Done
 export const login = async (email, password) => {
 	try {
 		console.log(apiUrl);
@@ -69,11 +83,16 @@ export const login = async (email, password) => {
 		return {
 			username: data.user.username,
 			email: data.user.email,
+			id: data.user._id,
 		};
 	} catch (error) {
 		console.log(error);
 		throw error;
 	}
+};
+//*Done
+export const logOut = async () => {
+	document.cookie = `authToken=loggedOut;max-age=0;domain=${reactAppDomain}`;
 };
 
 export const getTopTracks = async () => {
@@ -88,4 +107,44 @@ export const getTopTracks = async () => {
 			image: `https://api.napster.com/imageserver/v2/artists/${track.artistId}/images/500x500.jpg`,
 		};
 	});
+};
+//!Need to code
+export const addTrack = async (track) => {
+	try {
+		const response = await fetch(`${apiUrl}/music`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				track: track,
+			}),
+		});
+		const data = await response.json();
+		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
+		return {
+			track: data.result.track,
+		};
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+};
+//!!Need to code
+export const deleteTrack = async (track) => {
+	try {
+		const response = await fetch(`${apiUrl}/delete_track/:id`, {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				track: track,
+			}),
+		});
+		const data = await response.json();
+		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
+		return {
+			track: data.result.track,
+		};
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };

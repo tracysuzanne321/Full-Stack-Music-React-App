@@ -10,7 +10,7 @@ const Navbar = () => {
 	const history = useHistory();
 	return (
 		<nav className="flex py-6 bg-black text-white items-center">
-			<img className="h-6 ml-6 mr-2 mt-0.5" src={logo} />
+			<img alt="logo" className="h-6 ml-6 mr-2 mt-0.5" src={logo} />
 			<div className="pr-8 text-xl">MyMusic</div>
 			<ul className="flex flex-grow">
 				<li className="w-16">

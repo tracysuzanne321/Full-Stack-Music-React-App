@@ -36,6 +36,7 @@ const App = () => {
 						<Home />
 					</Route>
 				</Switch>
+				<Footer />
 			</BrowserRouter>
 		</AppContext.Provider>
 	);

@@ -12,7 +12,6 @@ const Playlist = () => {
 				You need to login to view your saved playlist
 			</div>
 			<Link
-				exact
 				to="/login"
 				className="bg-pink-500 hover:bg-black p-1.5 rounded text-white">
 				Click here to log in

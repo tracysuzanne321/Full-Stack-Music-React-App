@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import logo from '../images/logo512.png';
 
 const Navbar = () => {
-	const { setUser, user } = useContext(AppContext);
+	const { setUser, user, setSavedTracks } = useContext(AppContext);
 	const history = useHistory();
 	return (
 		<nav className="flex py-6 bg-black text-white items-center">
@@ -40,7 +40,7 @@ const Navbar = () => {
 								Log In
 							</NavLink>
 						</li>
-						<li className="w-16 mr-4">
+						<li className="w-16 mr-7">
 							<NavLink
 								to="/signup"
 								className="hover:text-pink-500"
@@ -60,16 +60,17 @@ const Navbar = () => {
 								Settings
 							</NavLink>
 						</li>
-						<li className="w-16 mr-4">
+						<li className="w-16 mr-7">
 							<a
 								href="#logout"
 								onClick={async () => {
 									await logOut();
-									history.push('/');
 									setUser({
 										username: '',
 										email: '',
 									});
+									setSavedTracks(null);
+									history.go('/');
 								}}
 								className="hover:text-pink-500">
 								Log Out

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Home from './pages/home';
@@ -7,6 +7,8 @@ import SignUp from './pages/signup';
 import Playlist from './pages/playlist';
 import { AppContext } from './AppContext';
 import Settings from './pages/settings';
+import Footer from './components/footer';
+import { attemptTokenLogin } from './utils';
 
 const App = () => {
 	const [user, setUser] = useState({
@@ -14,6 +16,18 @@ const App = () => {
 		email: '',
 	});
 	const [savedTracks, setSavedTracks] = useState(null);
+
+	useEffect(() => {
+		async function fetchData() {
+			if (user.username === '') {
+				const signedInUser = await attemptTokenLogin();
+				if (signedInUser !== null) {
+					setUser(signedInUser);
+				}
+			}
+		}
+		fetchData();
+	}, [user, setUser]);
 
 	return (
 		<AppContext.Provider value={{ user, setUser, savedTracks, setSavedTracks }}>

@@ -1,6 +1,6 @@
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 const reactAppDomain = process.env.REACT_APP_DOMAIN;
-//*Done
+
 export const createUser = async (username, email, password) => {
 	try {
 		const response = await fetch(`${apiUrl}/user`, {
@@ -23,12 +23,15 @@ export const createUser = async (username, email, password) => {
 		throw error;
 	}
 };
-//!Need to code
-export const updateUser = async (id, username, email, password) => {
+
+export const updateUser = async (username, email, password) => {
 	try {
-		const response = await fetch(`${apiUrl}/update/${id}`, {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json' },
+		const response = await fetch(`${apiUrl}/update`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('authToken')}`,
+			},
 			body: JSON.stringify({
 				username: username,
 				email: email,
@@ -36,7 +39,6 @@ export const updateUser = async (id, username, email, password) => {
 			}),
 		});
 		const data = await response.json();
-		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
 		return {
 			username: data.result.username,
 			email: data.result.email,
@@ -46,12 +48,15 @@ export const updateUser = async (id, username, email, password) => {
 		throw error;
 	}
 };
-//!Need to code
-export const deleteUser = async (id) => {
+
+export const deleteUser = async () => {
 	try {
-		await fetch(`${apiUrl}/delete/${id}`, {
+		await fetch(`${apiUrl}/delete`, {
 			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('authToken')}`,
+			},
 		});
 		return {
 			message: 'success',
@@ -60,7 +65,7 @@ export const deleteUser = async (id) => {
 		throw error;
 	}
 };
-//*Done
+
 export const login = async (email, password) => {
 	try {
 		const response = await fetch(`${apiUrl}/login`, {
@@ -84,7 +89,33 @@ export const login = async (email, password) => {
 		throw error;
 	}
 };
-//*Done
+
+export const attemptTokenLogin = async () => {
+	try {
+		const token = getCookie('authToken');
+		if (token !== null) {
+			const response = await fetch(`${apiUrl}/token`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			const data = await response.json();
+			document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
+			return {
+				username: data.user.username,
+				email: data.user.email,
+				id: data.user._id,
+			};
+		}
+		return null;
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
+};
+
 export const logOut = async () => {
 	document.cookie = `authToken=loggedOut;max-age=0;domain=${reactAppDomain}`;
 };
@@ -102,41 +133,66 @@ export const getTopTracks = async () => {
 		};
 	});
 };
-//!Need to code
-export const addTrack = async (track) => {
+
+export const addTrack = async (trackDetails) => {
 	try {
-		const response = await fetch(`${apiUrl}/music`, {
+		await fetch(`${apiUrl}/music`, {
 			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				track: track,
-			}),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('authToken')}`,
+			},
+			body: JSON.stringify(trackDetails),
 		});
-		const data = await response.json();
-		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
-		return {
-			track: data.result.track,
-		};
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const getSavedTracks = async () => {
+	try {
+		const request = await fetch(`${apiUrl}/music`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('authToken')}`,
+			},
+		});
+		const result = await request.json();
+		return result.map((track) => {
+			return {
+				...track,
+				id: `${track.name}_${track.artistName}`,
+			};
+		});
 	} catch (error) {
 		throw error;
 	}
 };
 //!!Need to code
-export const deleteTrack = async (track) => {
+export const deleteTrack = async (trackDetails) => {
 	try {
-		const response = await fetch(`${apiUrl}/delete_track/:id`, {
+		await fetch(`${apiUrl}/delete_track`, {
 			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				track: track,
-			}),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('authToken')}`,
+			},
+			body: JSON.stringify(trackDetails),
 		});
-		const data = await response.json();
-		document.cookie = `authToken=${data.token};max-age=604800;domain=${reactAppDomain}`;
-		return {
-			track: data.result.track,
-		};
 	} catch (error) {
 		throw error;
 	}
 };
+
+function getCookie(cookiename) {
+	if (typeof cookiename == 'string' && cookiename !== '') {
+		const COOKIES = document.cookie.split(';');
+		for (var i = 0; i < COOKIES.length; i++) {
+			if (COOKIES[i].trim().startsWith(cookiename)) {
+				return COOKIES[i].split('=')[1];
+			}
+		}
+	}
+	return null;
+}

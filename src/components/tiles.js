@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { getTopTracks } from '../utils';
+import { addTrack, deleteTrack, getSavedTracks, getTopTracks } from '../utils';
 import { AppContext } from '../AppContext';
 
 const Tiles = ({ onlyShowSaved = false }) => {
 	const { savedTracks, setSavedTracks } = useContext(AppContext);
 	const [tracks, setTracks] = useState();
-
 	useEffect(() => {
 		async function fetchData() {
+			if (savedTracks === null) {
+				const tracksSavedInDb = await getSavedTracks();
+				setSavedTracks(tracksSavedInDb);
+			}
 			if (onlyShowSaved === false) {
 				const topTracks = await getTopTracks();
 				setTracks(topTracks);
@@ -16,7 +19,7 @@ const Tiles = ({ onlyShowSaved = false }) => {
 			}
 		}
 		fetchData();
-	}, [onlyShowSaved, savedTracks]);
+	}, [onlyShowSaved, savedTracks, setSavedTracks]);
 
 	return (
 		<div className="flex flex-wrap">
@@ -43,11 +46,20 @@ const Tiles = ({ onlyShowSaved = false }) => {
 											savedTrack.id !== `${track.name}_${track.artistName}`,
 									);
 									setSavedTracks(newSavedTracks);
+									deleteTrack(track);
 									setTracks(newSavedTracks);
 								} else {
-									const currentTracks = savedTracks ?? [];
-									track.id = `${track.name}_${track.artistName}`;
-									setSavedTracks([...currentTracks, track]);
+									if (
+										savedTracks.some(
+											(savedTrack) =>
+												savedTrack.id === `${track.name}_${track.artistName}`,
+										) === false
+									) {
+										const currentTracks = savedTracks ?? [];
+										addTrack(track);
+										track.id = `${track.name}_${track.artistName}`;
+										setSavedTracks([...currentTracks, track]);
+									}
 								}
 							}}
 							type="submit"

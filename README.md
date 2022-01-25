@@ -8,3 +8,7 @@ This is the front end for a REST API made as part of a full stack app for the CN
 
 The site is built with React, Material UI, and React Router, and pulls information from Napster.
 
+## Backend 
+
+The back end is built with node, the repo can be found here and the site is live at:
+

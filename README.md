@@ -10,5 +10,5 @@ The site is built with React, Material UI, and React Router, and pulls informati
 
 ## Backend 
 
-The back end is built with node, the repo can be found [here] (https://github.com/tracysuzanne321/restAPI) and the site is live at:
+The back end is built with node, the repo can be found [here](https://github.com/tracysuzanne321/restAPI) and the site is live at:
 

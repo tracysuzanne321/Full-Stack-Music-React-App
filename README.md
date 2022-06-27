@@ -50,6 +50,7 @@
 My Music is a full stack application that utilises Napsters API to listen to music and save you favourite music. I really wanted to develop my MERN stack development skills and I created this as a reult.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Built With
 
 As well as developing MERN stack skills I was also keen to learn Tailwind CSS to implement styling. Here is the full list of the full tech stack

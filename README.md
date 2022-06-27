@@ -1,17 +1,10 @@
 <div id="top"></div>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://mymusic-uk.netlify.app/">
-    <img src="/src/images/screenshot.png" alt="Logo" width="80" height="80">
+    <img src="/src/images/screenshot.png" alt="Logo" width="100" height="auto">
   </a>
 
   <h3 align="center">My Music Full Stack React App</h3>
@@ -57,7 +50,6 @@
 My Music is a full stack application that utilises Napsters API to listen to music and save you favourite music. I really wanted to develop my MERN stack development skills and I created this as a reult.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Built With
 
 As well as developing MERN stack skills I was also keen to learn Tailwind CSS to implement styling. Here is the full list of the full tech stack
@@ -73,8 +65,6 @@ As well as developing MERN stack skills I was also keen to learn Tailwind CSS to
 <!-- GETTING STARTED -->
 
 ## Getting Started
-
-# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -173,9 +163,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Email me at - tracysmith32@live.co.uk
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/tracysuzanne321/My-Music](https://github.com/tracysuzanne321/My-Music)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

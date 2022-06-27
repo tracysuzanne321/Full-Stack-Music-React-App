@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://mymusic-uk.netlify.app/">
-    <img src="/src/images/screenshot.png" alt="Logo" width="100" height="auto">
+    <img src="/src/images/screenshot.png" alt="Logo" >
   </a>
 
   <h3 align="center">My Music Full Stack React App</h3>
